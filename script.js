@@ -20,30 +20,26 @@ function fetchSheet(sheet) {
     Papa.parse(sheet.url, {
       download: true,
       header: true,
+      dynamicTyping: true,
       complete: function(results) {
-        buildTable(sheet.title, results.data);
+        buildTable(results.meta.fields, results.data);
         resolve();
       }
     });
   });
 }
 
-function buildTable(title, data) {
+function buildTable(headers, data) {
   const container = document.getElementById('tableContainer');
-
-  const titleElement = document.createElement('h2');
-  titleElement.textContent = title;
-  titleElement.className = 'table-title';
-  container.appendChild(titleElement);
 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
-  if (data.length === 0) return;
+  if (headers.length === 0) return;
 
   const headerRow = document.createElement('tr');
-  Object.keys(data[0]).forEach(col => {
+  headers.forEach(col => {
     const th = document.createElement('th');
     th.textContent = col;
     headerRow.appendChild(th);
@@ -52,7 +48,7 @@ function buildTable(title, data) {
 
   data.forEach(row => {
     const tr = document.createElement('tr');
-    Object.keys(row).forEach(col => {
+    headers.forEach(col => {
       const td = document.createElement('td');
       td.textContent = row[col] || '';
       tr.appendChild(td);
