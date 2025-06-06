@@ -1,0 +1,116 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', serif;
+  background-color: #000;
+  color: white;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#honourBoardContainer {
+  width: 90%;
+  max-width: 1600px;
+  text-align: center;
+  position: relative;
+}
+
+.screen {
+  display: none;
+  position: relative;
+  padding: 40px;
+  border: 20px solid gold;
+  border-radius: 20px;
+  box-shadow: 0 0 30px gold;
+  background-size: cover;
+  background-position: center;
+}
+
+.screen.active {
+  display: block;
+}
+
+.logo {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 5px #000;
+}
+
+.honouree {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px 0;
+  padding: 10px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+}
+
+.honouree img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 3px solid gold;
+}
+
+.honouree .info {
+  text-align: left;
+}
+
+.nav-buttons {
+  margin-top: 30px;
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#startOverlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000ee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#startButton {
+  font-size: 2rem;
+  padding: 20px 40px;
+  background-color: gold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #fff;
+}
+
+#startButton:hover {
+  background-color: #d4af37;
+}

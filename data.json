@@ -1,0 +1,17 @@
+
+{
+  "screens": [
+    {
+      "title": "Best and Fairest",
+      "woodTexture": "images/wood1.jpg",
+      "logo": "images/yourlogo.png",
+      "honourees": [
+        {
+          "name": "John Doe",
+          "achievement": "Best and Fairest 2024",
+          "photo": "images/player1.jpg"
+        }
+      ]
+    }
+  ]
+}
