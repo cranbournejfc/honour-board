@@ -1,38 +1,58 @@
 
 const REFRESH_INTERVAL = 60 * 60 * 1000; // 60 minutes
-const publicCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?output=csv';
 
-function loadHonourBoardFromCSV() {
-  Papa.parse(publicCsvUrl, {
-    download: true,
-    header: true,
-    complete: function(results) {
-      buildTable(results.data);
-    }
+const sheets = [
+  { title: 'Honour Roll', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=601913881&single=true&output=csv' },
+  { title: 'Life Member', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=166586854&single=true&output=csv' },
+  { title: 'Best and Fairest', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=1412386410&single=true&output=csv' },
+  { title: 'Club Awards', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=617843838&single=true&output=csv' }
+];
+
+function loadAllSheets() {
+  const promises = sheets.map(sheet => fetchSheet(sheet));
+  Promise.all(promises).then(() => {
+    console.log('All sheets loaded');
   });
 }
 
-function buildTable(data) {
+function fetchSheet(sheet) {
+  return new Promise((resolve) => {
+    Papa.parse(sheet.url, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        buildTable(sheet.title, results.data);
+        resolve();
+      }
+    });
+  });
+}
+
+function buildTable(title, data) {
   const container = document.getElementById('tableContainer');
-  container.innerHTML = '';
+
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = title;
+  titleElement.className = 'table-title';
+  container.appendChild(titleElement);
 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
-  // Define the header
+  if (data.length === 0) return;
+
   const headerRow = document.createElement('tr');
-  ['DATE', 'PRESIDENT', 'SECRETARY', 'TREASURER'].forEach(col => {
+  Object.keys(data[0]).forEach(col => {
     const th = document.createElement('th');
     th.textContent = col;
     headerRow.appendChild(th);
   });
   thead.appendChild(headerRow);
 
-  // Add rows
   data.forEach(row => {
     const tr = document.createElement('tr');
-    ['DATE', 'PRESIDENT', 'SECRETARY', 'TREASURER'].forEach(col => {
+    Object.keys(row).forEach(col => {
       const td = document.createElement('td');
       td.textContent = row[col] || '';
       tr.appendChild(td);
@@ -53,10 +73,13 @@ function startHonourBoard() {
 
   enterFullscreen();
 
-  loadHonourBoardFromCSV();
-  
+  loadAllSheets();
+
   // Auto-refresh the data every 60 minutes
-  setInterval(loadHonourBoardFromCSV, REFRESH_INTERVAL);
+  setInterval(() => {
+    document.getElementById('tableContainer').innerHTML = '';
+    loadAllSheets();
+  }, REFRESH_INTERVAL);
 }
 
 function enterFullscreen() {
