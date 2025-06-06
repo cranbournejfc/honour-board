@@ -1,15 +1,13 @@
 
-let autoRotateInterval = null;
 const REFRESH_INTERVAL = 60 * 60 * 1000; // 60 minutes
+const publicCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?output=csv';
 
-const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pubhtml';
-
-function loadHonourBoardFromSheets() {
-  Tabletop.init({
-    key: publicSpreadsheetUrl,
-    simpleSheet: true,
-    callback: function(data) {
-      buildTable(data);
+function loadHonourBoardFromCSV() {
+  Papa.parse(publicCsvUrl, {
+    download: true,
+    header: true,
+    complete: function(results) {
+      buildTable(results.data);
     }
   });
 }
@@ -55,10 +53,10 @@ function startHonourBoard() {
 
   enterFullscreen();
 
-  loadHonourBoardFromSheets();
+  loadHonourBoardFromCSV();
   
   // Auto-refresh the data every 60 minutes
-  setInterval(loadHonourBoardFromSheets, REFRESH_INTERVAL);
+  setInterval(loadHonourBoardFromCSV, REFRESH_INTERVAL);
 }
 
 function enterFullscreen() {
