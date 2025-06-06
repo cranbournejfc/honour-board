@@ -3,9 +3,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Georgia', serif;
-  background: url('https://images.unsplash.com/photo-1584942911424-9e0527129d75?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
+  background: url('cranbourne_eagles_board_wide.png') no-repeat center top;
+  background-size: contain;
+  background-color: #000;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
@@ -15,27 +15,39 @@ body {
   justify-content: flex-start;
 }
 
-.logo {
-  max-width: 300px;
-  margin: 30px 0;
-}
-
 #honourBoardContainer {
   width: 90%;
   max-width: 1400px;
-  text-align: center;
+  height: 80vh;
+  overflow: hidden;
+  position: relative;
+  margin-top: 200px;
+}
+
+#tableWrapper {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 #tableContainer {
-  margin-top: 20px;
-  overflow-x: auto;
+  position: absolute;
+  top: 100%;
+  animation: scrollUp linear infinite;
+  animation-duration: 60s; /* speed of scrolling */
+}
+
+@keyframes scrollUp {
+  0% { top: 100%; }
+  100% { top: -100%; }
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 2rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
+  color: white;
 }
 
 th, td {
@@ -49,7 +61,7 @@ th {
 }
 
 td {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #startOverlay {
