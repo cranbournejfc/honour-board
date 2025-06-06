@@ -3,7 +3,7 @@ const REFRESH_INTERVAL = 60 * 60 * 1000; // 60 minutes
 
 const sheets = [
   { title: 'Honour Roll', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=601913881&single=true&output=csv' },
-  { title: 'Life Member', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=166586854&single=true&output=csv' },
+  { title: 'Life Member', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?output=csv' },
   { title: 'Best and Fairest', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=1412386410&single=true&output=csv' },
   { title: 'Club Awards', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFTq55DYn8TQUc77177b9DPFtW0cVXaghE59MBP3IBSM0OUYzAPsLmKseMqAVJw/pub?gid=617843838&single=true&output=csv' }
 ];
